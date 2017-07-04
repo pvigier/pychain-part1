@@ -22,6 +22,7 @@ def fully_connected(layers):
 	nodes = []
 	parameter_nodes = []
 
+	# Input
 	input_node = InputNode()
 	nodes.append(input_node)
 
@@ -47,6 +48,7 @@ def fully_connected(layers):
 		cur_input_node = activation_node
 		prev_size = size + 1
 
+	# Expected output
 	expected_output_node = InputNode()
 	# Cost function
 	cost_node = SigmoidCrossEntropyNode([(expected_output_node, 0), (cur_input_node, 0)])
