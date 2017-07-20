@@ -161,15 +161,8 @@ def test_parameter_node():
 
 	assert np.array_equal(parameter_node.get_output(0), np.ones((3, 2)))
 	norm2_node.get_output(0)
-	parameter_node.get_gradient(0)
-	assert np.array_equal(parameter_node.acc_dJdw, 2*np.ones((3, 2)))
-
-	parameter_node.reset_memoization()
-	parameter_node.get_gradient(0)
-	assert np.array_equal(parameter_node.acc_dJdw, 4*np.ones((3, 2)))
-
-	parameter_node.reset_accumulator()
-	assert np.array_equal(parameter_node.acc_dJdw, np.zeros((3, 2)))
+	print(parameter_node.get_gradient(0))
+	assert np.array_equal(parameter_node.get_gradient(0), 2*np.ones((3, 2)))
 
 def test_addition_node():
 	node_in1 = InputNode(np.array([[1, 1], [2, 2], [3, 3]]))

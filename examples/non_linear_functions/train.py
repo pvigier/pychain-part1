@@ -10,12 +10,12 @@ from node import *
 from optimization_algorithm import *
 from datasets import *
 
-def visualize(graph, n, x1min=-0.5, x1max=1.5, x2min=-0.5, x2max=1.5):
-	dx1 = (x1max - x1min) / n
-	dx2 = (x2max - x2min) / n
-	X = np.resize(np.array([[[x1min+i*dx1, x2min+j*dx2] for i in range(n)] for j in range(n)]), (1, n*n, 2))
-	Y = np.resize(graph.propagate(X)[0], (n, n))
-	plt.imshow(Y, extent=[x1min, x1max, x2min, x2max], vmin=0, vmax=1, interpolation='none', origin='lower')
+def visualize(graph, n, x1_min=-0.5, x1_max=1.5, x2_min=-0.5, x2_max=1.5):
+	x1s, x2s = np.linspace(x1_min, x1_max, n), np.linspace(x2_min, x2_max, n)
+	x1s, x2s = np.meshgrid(x1s, x2s)
+	X = np.concatenate((x1s.reshape(x1s.size, 1), x2s.reshape(x2s.size, 1)), axis=1)
+	Y = graph.propagate([X])[0].reshape(n, n)
+	plt.imshow(Y, extent=[x1_min, x1_max, x2_min, x2_max], vmin=0, vmax=1, origin='lower', cmap='jet')
 	plt.colorbar()
 
 def fully_connected(layers):
