@@ -209,14 +209,14 @@ class EWMultiplicationNode(Node):
     def compute_gradient(self):
         return [self.dJdy[0]*self.x[1], self.dJdy[0]*self.x[0]]
 
-class SoftmaxCrossEntropyNode(Node):
+class CategoricalCrossEntropyNode(Node):
     def compute_output(self):
         return [-np.sum(self.x[0]*np.log(self.x[1]))]
 
     def compute_gradient(self):
         return [-self.dJdy[0]*np.log(self.x[1]), -self.dJdy[0]*(self.x[0]/self.x[1])]
 
-class SigmoidCrossEntropyNode(Node):
+class BinaryCrossEntropyNode(Node):
     def compute_output(self):
         return [-np.sum((self.x[0]*np.log(self.x[1]) + (1-self.x[0])*np.log(1-self.x[1])))]
 

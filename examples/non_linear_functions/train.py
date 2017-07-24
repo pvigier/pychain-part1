@@ -18,7 +18,7 @@ def visualize(graph, n, x1_min=-0.5, x1_max=1.5, x2_min=-0.5, x2_max=1.5):
 	plt.imshow(Y, extent=[x1_min, x1_max, x2_min, x2_max], vmin=0, vmax=1, origin='lower', cmap='jet')
 	plt.colorbar()
 
-def fully_connected(layers):
+def create_fully_connected_network(layers):
 	nodes = []
 	parameter_nodes = []
 
@@ -51,7 +51,7 @@ def fully_connected(layers):
 	# Expected output
 	expected_output_node = InputNode()
 	# Cost function
-	cost_node = SigmoidCrossEntropyNode([(expected_output_node, 0), (cur_input_node, 0)])
+	cost_node = BinaryCrossEntropyNode([(expected_output_node, 0), (cur_input_node, 0)])
 
 	nodes += [expected_output_node, cost_node]
 	return Graph(nodes, [input_node], [cur_input_node], [expected_output_node], cost_node, parameter_nodes)
@@ -68,7 +68,7 @@ if __name__ == '__main__':
 
 	# Create the graph and initialize the optimization algorithm
 	layers = [4, 4, 1]
-	graph = fully_connected(layers)
+	graph = create_fully_connected_network(layers)
 	sgd = GradientDescent(graph.get_parameter_nodes(), 0.1)
 	# Train
 	t = []
