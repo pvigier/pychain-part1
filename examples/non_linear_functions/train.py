@@ -17,6 +17,9 @@ def visualize(graph, n, x1_min=-0.5, x1_max=1.5, x2_min=-0.5, x2_max=1.5):
 	Y = graph.propagate([X])[0].reshape(n, n)
 	plt.imshow(Y, extent=[x1_min, x1_max, x2_min, x2_max], vmin=0, vmax=1, origin='lower', cmap='jet')
 	plt.colorbar()
+	plt.xlabel('x1')
+	plt.ylabel('x2')
+	plt.title('Network fully-connected {}'.format(layers))
 
 def create_fully_connected_network(layers):
 	nodes = []
@@ -86,13 +89,11 @@ if __name__ == '__main__':
 
 	# Visualize the frontier
 	visualize(graph, 100)
-	plt.xlabel('x1')
-	plt.ylabel('x2')
-	plt.title('Network fully-connected {}'.format(layers))
 	# Plot the cost
 	plt.figure()
 	plt.plot(t, costs)
 	plt.xlabel('Number of passes')
 	plt.ylabel('Cost')
 	plt.title('Network fully-connected {}'.format(layers))
+
 	plt.show()
